@@ -1,30 +1,185 @@
+/* ------------------------- */
+/* Βασικό styling και layout */
+/* ------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* Κεντράρισμα checkbox μέσα στο li */
+.checkbox-centered {
+    display: block;
+    margin: 0 auto; /* Κεντράρει οριζόντια */
+    transform: scale(1.2); /* λίγο μεγαλύτερο για visibility */
+}
+
+/* Αν το checkbox είναι μέσα σε flex container με το label, μπορούμε να κάνουμε έτσι: */
+li {
+    display: flex;
+    align-items: center;    /* Κεντράρισμα κάθετα */
+    justify-content: space-between; /* Task text αριστερά, checkbox δεξιά */
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 h1 {
     text-align: center;
-    margin-top: 40px;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ------------------------- */
+/* Inputs και buttons */
+/* ------------------------- */
+
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* ------------------------- */
+/* Error messages */
+/* ------------------------- */
+
+#task:invalid {
+    border-color: red;
+}
+
+#task:focus:invalid {
+    outline-color: red;
+}
+
+#checkbox {
+    transform: scale(1.2);
+    margin-right: 10px;
 }
 
 #errorMessage {
     color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
+
+/* ------------------------- */
+/* Λίστα Tasks */
+/* ------------------------- */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+li:hover {
+    transform: scale(1.02);
+    background-color: #e6f0ff;
+}
+
+/* ------------------------- */
+/* Completed tasks */
+/* ------------------------- */
+
+.crossed {
+    text-decoration: line-through;
+    color: gray;
+    transition: all 0.3s ease;
+}
+
+/* ------------------------- */
+/* Edit/Delete buttons */
+/* ------------------------- */
 
 .action {
     width: 70px;
-}
-
-#checkbox {
-    border: solid 1px blue;
-    margin-left: 30px;
-    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .edit {
     border: 2px solid orange;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff3e0;
+    transition: background-color 0.3s;
+}
+
+.edit:hover {
+    background-color: #ffd699;
 }
 
 .noedit {
     background-color: rgb(230, 230, 230);
 }
 
-.crossed {
-    text-decoration: line-through;
+/* ------------------------- */
+/* Animations */
+li.added {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.copyright {
+    text-align: center;
+    padding: 10px 0;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    font-weight: 500;
 }

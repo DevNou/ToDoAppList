@@ -1,51 +1,104 @@
 <div class="container">
   <h1>To do list</h1>
 
-  <form>
-    <div class="form-group">
-      <label for="task">Task to Complete</label>
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div class="mb-3">
+      <label for="task" class="form-label">Task to complete</label>
       <input
         type="text"
+        ngModel
+        name="newTask"
+        placeholder="Enter your task here"
         class="form-control"
         id="task"
         aria-describedby="task"
-        placeholder="Enter Your Task Here"
+        required
       />
-      <div id="errorMessage" class="form-text"
-        >Required field.</div
+      <!-- na to xanadw  -->
+      <div
+        *ngIf="myForm.invalid && myForm.dirty"
+        id="errorMessage"
+        class="form-text"
       >
+        Required field
+      </div>
     </div>
- 
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">
+      Submit
+    </button>
   </form>
-  <hr>
+  <hr />
   <table class="table">
-  <thead>
-    <tr>
-   
-      <th scope="col">Task</th>
-      <th scope="col">Completed</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Save</th>
-      <th scope="col">Delete</th>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Completed</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Save</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of taskArray; track item; let idx = $index){
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-     
-      <td>Dishes</td>
-      <td><input type="checkbox" class="form-check-input" id="checkbox"></td>
-      <td><button class="btn btn-warning btn-sm action">Edit</button></td>
-      <td><button class="btn btn-info btn-sm action">Save</button></td>
-      <td><button class="btn btn-danger btn-sm action">Delete</button></td>
+      <tr>
+        <td>
+          <input
+            #taskinput
+            type="text"
+            value="{{ item.taskName }}"
+            class="form-control"
+            [readOnly]="item.isReadOnly"
+            [ngClass]="{
+              edit: !item.isReadOnly,
+              noedit: item.isReadOnly,
+              crossed: item.isCompleted
+            }"
+          />
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            [checked]="item.isCompleted"
+            (change)="onCheck(idx)"
+            class="form-check-input"
+            id="checkbox"
+          />
+        </td>
+        <td>
+          <button
+            class="btn btn-warning btn-sm action"
+            (click)="onEdit(idx)"
+            [disabled]="!item.isReadOnly"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            class="btn btn-info btn-sm action"
+            (click)="onSave(idx, taskinput.value)"
+            [disabled]="item.isReadOnly"
+          >
+            Save
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm action" (click)="onDelete(idx)">
+            Delete
+          </button>
+        </td>
+      </tr>
 
-  
-    </tr>
- 
-  </tbody>
-</table>
+      } @empty{
+      <p>There are no tasks</p>
+      }
+    </tbody>
+  </table>
 
-<p>Task count: 1</p>
-
+  <p>Task count: {{ count() }}</p>
 </div>
+
+
+<p class="copyright">Power By DevAr</p>
