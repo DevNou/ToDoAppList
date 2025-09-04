@@ -1,6 +1,15 @@
-<div class="container">
-  <h1>To do list</h1>
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">To-Do List</h1>
 
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Form -->
   <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
     <div class="mb-3">
       <label for="task" class="form-label">Task to complete</label>
@@ -11,28 +20,42 @@
         placeholder="Enter your task here"
         class="form-control"
         id="task"
-        aria-describedby="task"
         required
       />
-      <!-- na to xanadw  -->
       <div
-        *ngIf="myForm.invalid && myForm.dirty"
-        id="errorMessage"
-        class="form-text"
+        *ngIf="myForm.controls['newTask']?.invalid && myForm.controls['newTask']?.touched"
+        class="form-text text-danger"
       >
         Required field
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">
-      Submit
+    <button type="submit" class="btn btn-primary me-2" [disabled]="myForm.invalid">
+      Add Task
+    </button>
+    <button type="button" class="btn btn-secondary me-2" (click)="clearAll()">
+      Clear All
+    </button>
+    <button type="button" class="btn btn-success" (click)="markAllComplete()">
+      Mark All Complete
     </button>
   </form>
+
   <hr />
-  <table class="table">
+
+  <!-- Filter buttons -->
+  <div class="btn-group mb-3">
+    <button class="btn btn-outline-primary" (click)="filter='all'">All</button>
+    <button class="btn btn-outline-success" (click)="filter='completed'">Completed</button>
+    <button class="btn btn-outline-warning" (click)="filter='pending'">Pending</button>
+  </div>
+
+  <!-- Tasks table -->
+  <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Task</th>
+        <th scope="col">Created</th>
         <th scope="col">Completed</th>
         <th scope="col">Edit</th>
         <th scope="col">Save</th>
@@ -40,65 +63,61 @@
       </tr>
     </thead>
     <tbody>
-      @for(item of taskArray; track item; let idx = $index){
-
-      <tr>
+      <tr *ngFor="let item of taskArray | taskFilter:filter; let idx = index">
         <td>
           <input
             #taskinput
             type="text"
-            value="{{ item.taskName }}"
+            [value]="item.taskName"
             class="form-control"
             [readOnly]="item.isReadOnly"
             [ngClass]="{
               edit: !item.isReadOnly,
               noedit: item.isReadOnly,
-              crossed: item.isCompleted
+              crossed: item.isCompleted,
+               'border-orange': !item.isReadOnly
+              
             }"
           />
         </td>
-        <td>
+        <td>{{ item.createdAt | date:'short' }}</td>
+        <td class="text-center">
           <input
             type="checkbox"
             [checked]="item.isCompleted"
             (change)="onCheck(idx)"
             class="form-check-input"
-            id="checkbox"
           />
         </td>
         <td>
-          <button
-            class="btn btn-warning btn-sm action"
-            (click)="onEdit(idx)"
-            [disabled]="!item.isReadOnly"
-          >
-            Edit
+          <button class="btn btn-warning btn-sm me-1" (click)="onEdit(idx)" [disabled]="!item.isReadOnly" title="Edit">
+            <i class="bi bi-pencil me-1"></i> Edit
           </button>
         </td>
         <td>
-          <button
-            class="btn btn-info btn-sm action"
-            (click)="onSave(idx, taskinput.value)"
-            [disabled]="item.isReadOnly"
-          >
-            Save
+          <button class="btn btn-info btn-sm me-1" (click)="onSave(idx, taskinput.value)" [disabled]="item.isReadOnly" title="Save">
+           <i class="bi bi-check-lg me-1"></i> Save
           </button>
         </td>
         <td>
-          <button class="btn btn-danger btn-sm action" (click)="onDelete(idx)">
-            Delete
+          <button class="btn btn-danger btn-sm" (click)="onDelete(idx)" title="Delete">
+          <i class="bi bi-trash me-1"></i> Delete
           </button>
         </td>
       </tr>
 
-      } @empty{
-      <p>There are no tasks</p>
-      }
+      <tr *ngIf="taskArray.length === 0">
+        <td colspan="6" class="text-center text-muted">There are no tasks</td>
+      </tr>
     </tbody>
   </table>
 
   <p>Task count: {{ count() }}</p>
+
+  <!-- Footer -->
+  <p class="text-center mt-3">
+    <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+    <a href="#" class="me-2"><i class="bi bi-github"></i></a>
+    <span class="copyright">Powered by DevAr</span>
+  </p>
 </div>
-
-
-<p class="copyright">Power By DevAr</p>
