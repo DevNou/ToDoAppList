@@ -1,27 +1,33 @@
-# ToDoAppList
+ToDoAppList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+This project is a To-Do List application built with Angular 18+ and Bootstrap. It allows users to add, edit, delete, and mark tasks as completed. Key features implemented include:
 
-## Development server
+Add Tasks: Users can create new tasks using a form with validation.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Edit Tasks: Clicking Edit makes the task input editable and highlights it with an orange border.
 
-## Code scaffolding
+Save Tasks: Changes can be saved back to the task list.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Delete Tasks: Remove individual tasks from the list.
 
-## Build
+Mark Complete: Tasks can be marked as completed, visually crossing them out.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Clear All / Mark All Complete: Buttons to manage multiple tasks at once.
 
-## Running unit tests
+Task Filtering: Filter tasks by All, Completed, or Pending status.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Task Count: Displays the total number of tasks dynamically.
 
-## Running end-to-end tests
+Responsive UI: Built with Bootstrap for a clean and mobile-friendly layout.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Notifications: Success and error messages are shown when tasks are added or invalid input is submitted.
 
-## Further help
+Technologies used:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Angular 18+ (standalone components, signals)
+
+Bootstrap 5 for styling and responsive layout
+
+Custom CSS for enhanced UI (orange border for editing, crossed-out completed tasks)
+
+Angular Pipes for task filtering
