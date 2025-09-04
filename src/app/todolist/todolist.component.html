@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>To do list</h1>
+
+  <form>
+    <div class="form-group">
+      <label for="task">Task to Complete</label>
+      <input
+        type="text"
+        class="form-control"
+        id="task"
+        aria-describedby="task"
+        placeholder="Enter Your Task Here"
+      />
+      <div id="errorMessage" class="form-text"
+        >Required field.</div
+      >
+    </div>
+ 
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <hr>
+  <table class="table">
+  <thead>
+    <tr>
+   
+      <th scope="col">Task</th>
+      <th scope="col">Completed</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Save</th>
+      <th scope="col">Delete</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     
+      <td>Dishes</td>
+      <td><input type="checkbox" class="form-check-input" id="checkbox"></td>
+      <td><button class="btn btn-warning btn-sm action">Edit</button></td>
+      <td><button class="btn btn-info btn-sm action">Save</button></td>
+      <td><button class="btn btn-danger btn-sm action">Delete</button></td>
+
+  
+    </tr>
+ 
+  </tbody>
+</table>
+
+<p>Task count: 1</p>
+
+</div>
